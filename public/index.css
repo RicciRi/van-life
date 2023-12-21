@@ -46,6 +46,10 @@ header button{
   border: none;
 }
 
+nav a{
+  margin: 0 10px;
+  font-size: 18px;
+}
 /* ABOUT */
 
 
@@ -159,4 +163,73 @@ button{
   size: cover;
   width: 100%;
   max-height: 500px;
+}
+
+
+.vans{
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+}
+
+.vans h2{
+  margin: 60px auto 0 auto;
+}
+
+.container-items {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+    gap: 34px;
+    margin-top: 57px;
+}
+
+.car-image{
+  width: 100%;
+  background: cover;
+}
+.section-items{
+  width: 230px;
+}
+
+.van-info{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.van-type{
+  height: 34px;
+  padding: 6px 26px;
+  font-style: normal;
+  font-weight: 500;
+  border: none;
+  border-radius: 5px;
+  background-color: #FFEAD0;
+  color: #4D4D4D;
+  transition: 200ms all cubic-bezier(0.4, 0, 0.2, 1);
+}
+.van-type:hover {
+  color: #FFEAD0;
+}
+
+.van-type:focus {
+  outline: none;
+}
+
+.van-type.selected {
+  color: #FFEAD0;
+}
+
+.van-type.simple:hover, .van-type.simple.selected {
+  background-color: #E17654;
+}
+
+.van-type.rugged:hover, .van-type.rugged.selected {
+  background-color: #115E59;
+}
+
+.van-type.luxury:hover, .van-type.luxury.selected {
+  background-color: #161616;
 }
