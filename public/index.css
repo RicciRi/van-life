@@ -1,0 +1,162 @@
+body {
+  margin: 0;
+  font-size: 16px;
+  font-family: 'Roboto', sans-serif;
+  /* background-color: var(--dark-black-color); */
+}
+
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --black-color: #131515;
+  --dark-black-color: #000000;
+  --white-color: #FFFFFF;
+  --dark-grey-color: #2E2E2F;
+  --gray-color: #e5e5e5;
+  --white-gray-color: #A5A5A5;
+}
+
+/* !!! HEADER !!! */
+header{
+  background-color: #FFF7ED;
+  padding: 20px 40px;
+  min-height: 110px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header a{
+  text-decoration: none;
+  color: #000000;
+}
+
+.site-logo{
+  font-weight: 700;
+  font-size: 32px;
+}
+
+header button{
+  font-size: 18px;
+  padding: 10px;
+  color: #4D4D4D;
+  background-color: #FFF7ED;
+  border: none;
+}
+
+/* ABOUT */
+
+
+.about-hero-image {
+  max-width: 100%;
+}
+
+.about-page-container {
+  color: #161616;
+  margin-bottom: 55px;
+}
+
+.about-section{
+  padding: 23px;
+}
+
+.about-page-content h1 {
+  line-height: 38px;
+}
+
+.about-page-content p {
+  line-height: 22px;
+}
+
+.about-page-cta {
+  background-color: #FFCC8D;
+  color: #161616;
+  padding-inline: 32px;
+  padding-bottom: 32px;
+  margin-inline: 27px;
+  border-radius: 5px;
+}
+
+.about-page-cta h2 {
+  margin: 0;
+  padding-block: 37px;
+}
+
+.about-page-cta .link-button {
+  background-color: #161616;
+  color: white;
+  border-radius: 10px;
+}
+.link-button{
+  padding: 10px;
+}
+
+
+/* !!! MAIN !!! */
+
+
+.home-container{
+  min-height: 550px;
+  background: url("./rock.png") no-repeat;
+  background-size: cover;
+  padding: 60px 26px;
+  color: #FFFFFF;
+}
+
+.home-section{
+  max-width: 900px;
+  margin: 48px auto;
+}
+
+.home-container h2{
+  font-weight: 800;
+  font-size: 40px;
+}
+
+.home-container p {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.home-container a {
+  display: flex;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 20px;
+  letter-spacing: 1px;
+  width: 100%;
+  margin: 40px 0;
+  padding: 14px;
+  background-color: #FF8C38;
+  color: #FFFFFF;
+  border: none;
+}
+
+
+/* !!! FOOTER !!! */
+
+footer{
+  width: 100%;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #252525;
+  color: #AAAAAA;
+}
+
+
+
+button{
+  cursor: pointer;
+}
+
+.camp-img{
+  background: no-repeat;
+  size: cover;
+  width: 100%;
+  max-height: 500px;
+}
