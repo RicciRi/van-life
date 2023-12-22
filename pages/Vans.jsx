@@ -3,11 +3,12 @@ import React from "react"
 
 export default function Vans() {
     const [vans, setVans] = React.useState([])
+
     React.useState(() => {
         fetch("/api/vans")
             .then(res => res.json())
             .then(data => setVans(data.vans))
-    })
+    }, [])
 
     const vanElement = vans.map((van) => (
         <section key={van.id} className="section-items">
