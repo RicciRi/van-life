@@ -3,6 +3,8 @@ import React from "react"
 
 export default function Footer (){
     return (
-        <h1>Build by Ricci</h1>
+        <footer>
+            <p>@Build by Ricci@2023</p>
+        </footer>
     )
 }
