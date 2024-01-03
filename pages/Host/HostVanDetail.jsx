@@ -20,15 +20,16 @@ export default function HostVanDetail() {
                 setLoading(false)
             }
         }
+
         loadVans()
     }, [id])
 
-    if(loading) {
+    if (loading) {
         return <h1>Loading...</h1>
     }
 
-    if(error){
-        <h1>There was an error: {error.message}</h1>
+    if (error) {
+        return <h1>There was an error: {error.message}</h1>
     }
 
     const activeStyles = {
@@ -36,7 +37,7 @@ export default function HostVanDetail() {
         textDecoration: "underline",
         color: "#161616"
     }
-        
+
     return (
         <section>
             <Link
@@ -85,4 +86,5 @@ export default function HostVanDetail() {
         </section>
     )
 }
+
 

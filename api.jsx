@@ -1,3 +1,7 @@
+// A function whose only purpose is to delay execution
+// for the specified # of milliseconds when used w/ `await`
+// e.g. inside an async function:
+// await sleep(2000)  => pauses the function for 2 seconds before moving on
 function sleep(ms) {
     return new Promise(resolve => setTimeout(() => resolve(), ms))
 }
@@ -5,9 +9,9 @@ function sleep(ms) {
 export async function getVans(id) {
     const url = id ? `/api/vans/${id}` : "/api/vans"
     const res = await fetch(url)
-    if(!res.ok) {
+    if (!res.ok) {
         throw {
-            message: "Failed to fetch vans", 
+            message: "Failed to fetch vans",
             statusText: res.statusText,
             status: res.status
         }
@@ -17,11 +21,11 @@ export async function getVans(id) {
 }
 
 export async function getHostVans(id) {
-    const url = id ? `/api/vans/host/${id}` : "/api/host/vans"
+    const url = id ? `/api/host/vans/${id}` : "/api/host/vans"
     const res = await fetch(url)
-    if(!res.ok) {
+    if (!res.ok) {
         throw {
-            message: "Failed to fetch vans", 
+            message: "Failed to fetch vans",
             statusText: res.statusText,
             status: res.status
         }
@@ -31,7 +35,9 @@ export async function getHostVans(id) {
 }
 
 export async function loginUser(creds) {
-    const res = await fetch("/api/login", { method: "post", body: JSON.stringify(creds) })
+    const res = await fetch("/api/login",
+        { method: "post", body: JSON.stringify(creds) }
+    )
     const data = await res.json()
 
     if (!res.ok) {
