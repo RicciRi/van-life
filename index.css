@@ -296,8 +296,6 @@ i[class*='van-type-'] {
     text-decoration: none;
 }
 
-
-
 .van-detail-container .back-button span {
     text-decoration: underline;
 }
@@ -527,7 +525,9 @@ i[class*='van-type-'] {
     margin-top: 22px;
     color: white;
     font-family: "Inter", sans-serif;
+    cursor: pointer;
 }
-.login-first {
+
+.login-error {
     color: red;
 }
