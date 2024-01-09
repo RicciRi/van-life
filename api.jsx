@@ -37,7 +37,7 @@ export async function addItemToUsers(item) {
     }
 }
 
-export async function getUser(email, password) {
+export async function loginUser(email, password) {
     const snapshot = await getDocs(usersCollectionRef)
     const users = snapshot.docs.map(doc => ({
         ...doc.data(),
@@ -49,27 +49,6 @@ export async function getUser(email, password) {
     })
     return user
 }
-
-
-export async function loginUser(creds) {
-    const res = await fetch("/api/login",
-        { method: "post", body: JSON.stringify(creds) }
-    )
-    const data = await res.json()
-
-    if (!res.ok) {
-        throw {
-            
-            message: data.message,
-            statusText: res.statusText,
-            status: res.status
-        }
-    }
-    
-    return data
-}
-
-
 
 
 export async function getVans() {
