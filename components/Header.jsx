@@ -1,8 +1,12 @@
 import React from "react"
 import { Link, NavLink } from "react-router-dom"
 import { MdOutlineAccountCircle } from "react-icons/md";
+import { IoIosLogOut } from "react-icons/io";
+
 
 export default function Header() {
+    const [login, setLogin] = React.useState(false) 
+
     const activeStyles = {
         fontWeight: "bold",
         textDecoration: "underline",
@@ -40,9 +44,8 @@ export default function Header() {
                     className={({isActive}) => isActive ? "active-link" : null}
                 >
                     <MdOutlineAccountCircle className="login-icon" />
-
                 </NavLink>
-                <button onClick={fakeLogOut}>X</button>
+                <button className="logOut-button" onClick={fakeLogOut}><IoIosLogOut className="login-icon" /></button>
             </nav>
         </header>
     )

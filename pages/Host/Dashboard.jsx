@@ -2,6 +2,6 @@ import React from "react"
 
 export default function Dashboard() {
     return (
-        <h1>Its Dash!!!</h1>
+        <h1>Its Dashboard</h1>
     )
 }

@@ -531,3 +531,9 @@ i[class*='van-type-'] {
 .login-error {
     color: red;
 }
+
+.logOut-button{
+    border: none;
+    background-color: #FFF7ED;
+    cursor: pointer;
+}
