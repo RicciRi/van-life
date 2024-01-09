@@ -1,13 +1,14 @@
-import { initializeApp } from "firebase/app"
 import {
-    getFirestore,
-    collection,
-    doc,
-    getDocs,
-    getDoc,
+    getFirestore, 
+    collection, 
+    doc, 
+    getDocs, 
+    getDoc, 
     query,
-    where
+    where, 
+    addDoc
 } from "firebase/firestore/lite"
+import { initializeApp } from "firebase/app";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCQa336dFDxzgsokVt0v4YhBGbeTOJJqg8",
@@ -20,10 +21,56 @@ const firebaseConfig = {
 
 
 const app = initializeApp(firebaseConfig)
-const db = getFirestore(app)
+const database = getFirestore(app)
 
 // Refactoring the fetching functions below
-const vansCollectionRef = collection(db, "vans")
+const vansCollectionRef = collection(database, "vans")
+const usersCollectionRef = collection(database, "users")
+
+
+export async function addItemToUsers(item) {
+    try{ 
+        await addDoc(usersCollectionRef, item,)
+        console.log("Регестрация прошла успешно!")
+    } catch (error) {
+        console.log("Ошибка при добавлении нового объекта:", error);
+    }
+}
+
+export async function getUser(email, password) {
+    const snapshot = await getDocs(usersCollectionRef)
+    const users = snapshot.docs.map(doc => ({
+        ...doc.data(),
+        id: doc.id
+    }))
+
+    const user = users.filter(u => {
+        return u.email == email && u.password == password 
+    })
+    return user
+}
+
+
+export async function loginUser(creds) {
+    const res = await fetch("/api/login",
+        { method: "post", body: JSON.stringify(creds) }
+    )
+    const data = await res.json()
+
+    if (!res.ok) {
+        throw {
+            
+            message: data.message,
+            statusText: res.statusText,
+            status: res.status
+        }
+    }
+    
+    return data
+}
+
+
+
 
 export async function getVans() {
     const snapshot = await getDocs(vansCollectionRef)
@@ -35,7 +82,7 @@ export async function getVans() {
 }
 
 export async function getVan(id) {
-    const docRef = doc(db, "vans", id)
+    const docRef = doc(database, "vans", id)
     const snapshot = await getDoc(docRef)
     return {
         ...snapshot.data(),
@@ -52,6 +99,8 @@ export async function getHostVans() {
     }))
     return vans
 }
+
+
 
 /* 
 This 👇 isn't normally something you'd need to do. Instead, you'd 
@@ -82,20 +131,3 @@ It also shows how you can chain together multiple `where` filter calls
 //     }))
 //     return vans[0]
 // }
-
-export async function loginUser(creds) {
-    const res = await fetch("/api/login",
-        { method: "post", body: JSON.stringify(creds) }
-    )
-    const data = await res.json()
-
-    if (!res.ok) {
-        throw {
-            message: data.message,
-            statusText: res.statusText,
-            status: res.status
-        }
-    }
-
-    return data
-}

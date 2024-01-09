@@ -532,8 +532,21 @@ i[class*='van-type-'] {
     color: red;
 }
 
+
+
+
+
 .logOut-button{
     border: none;
     background-color: #FFF7ED;
     cursor: pointer;
+}
+
+.registr-form{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    max-width: 300px;
+    min-height: 300px;
+    margin: 0 auto;
 }

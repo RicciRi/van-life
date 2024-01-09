@@ -1,8 +1,14 @@
 import React from "react";
-import { useNavigate, useLocation } from "react-router-dom"
+import { useNavigate, useLocation, Link } from "react-router-dom"
 import { loginUser } from "../api";
 
 export default function Login() {
+    const isLoggedIn = localStorage.getItem("loggedin")
+    if(isLoggedIn){
+        return <h1>You alredy login!</h1>
+    }
+
+    
     const [loginFormData, setLoginFormData] = React.useState({ email: "", password: "" })
     const [status, setStatus] = React.useState("idle")
     const [error, setError] = React.useState(null)
@@ -75,6 +81,9 @@ export default function Login() {
                     }
                 </button>
             </form>
+
+            <p>Don't having an account?</p>
+            <Link to="/registration">Create acount</Link>
         </div>
     )
 

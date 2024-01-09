@@ -5,8 +5,7 @@ import { IoIosLogOut } from "react-icons/io";
 
 
 export default function Header() {
-    const [login, setLogin] = React.useState(false) 
-
+    
     const activeStyles = {
         fontWeight: "bold",
         textDecoration: "underline",
@@ -39,13 +38,13 @@ export default function Header() {
                 >
                     Vans
                 </NavLink>
-                <NavLink 
+                 <NavLink 
                     to="/login"
                     className={({isActive}) => isActive ? "active-link" : null}
                 >
                     <MdOutlineAccountCircle className="login-icon" />
-                </NavLink>
-                <button className="logOut-button" onClick={fakeLogOut}><IoIosLogOut className="login-icon" /></button>
+                </NavLink> 
+                 <button className="logOut-button" onClick={fakeLogOut}><IoIosLogOut className="login-icon" /></button> 
             </nav>
         </header>
     )

@@ -7,6 +7,7 @@ import AuthRequired from './components/AuthRequired';
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Login from "./pages/Login"
+import Registration from './pages/Registration';
 import Vans from "./pages/Vans/Vans";
 import VanDetail from "./pages/Vans/VanDetail";
 import Reviews from './pages/Host/Reviews';
@@ -42,6 +43,7 @@ function App() {
             path="login"
             element={<Login />}
           />
+          <Route path='/registration' element={<Registration />} /> 
 
           <Route element={<AuthRequired />}>
             <Route path="host" element={<HostLayout />}>
