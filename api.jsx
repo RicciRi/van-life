@@ -6,7 +6,8 @@ import {
     getDoc,
     query,
     where,
-    addDoc
+    addDoc,
+    setDoc
 } from "firebase/firestore/lite"
 import { initializeApp } from "firebase/app";
 
@@ -52,8 +53,6 @@ export async function loginUser(data) {
     }))
     const email = data.email
     const password = data.password
-    console.log(email)
-    console.log(password)
     const user = users.find(u => u.email == email && u.password == password)
     // pushUserToLocalStorage()
     // console.log(user)
@@ -97,15 +96,68 @@ export async function getVan(id) {
     }
 }
 
-export async function getHostVans() {
-    const q = query(vansCollectionRef, where("hostId", "==", "123"))
-    const snapshot = await getDocs(q)
-    const vans = snapshot.docs.map(doc => ({
-        ...doc.data(),
-        id: doc.id
-    }))
-    return vans
+export async function addVansToUserHost(id) {
+    const van = await getVan(id);
+    const vanHostId = van.hostId;
+
+    // Получаем текущего пользователя
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    // Проверяем, существует ли уже vanHostId в hostVans пользователя
+    if (!user.hostVans.includes(vanHostId)) {
+        // Если vanHostId не существует, добавляем его
+        user.hostVans.push(vanHostId);
+
+        try {
+            // Получаем ссылку на документ пользователя
+            const docRef = doc(database, "users", user.id);
+
+            // Получаем текущие данные пользователя из базы данных
+            const docSnap = await getDoc(docRef);
+            const userData = docSnap.data();
+
+            // Обновляем данные пользователя с добавленным vanHostId
+            userData.hostVans = user.hostVans;
+
+            // Записываем обновленные данные в базу данных
+            await setDoc(docRef, userData);
+
+            // Обновляем информацию в localStorage
+            localStorage.setItem("user", JSON.stringify(user));
+        } catch (error) {
+            console.error("Ошибка при добавлении vanHostId в hostVans пользователя:", error);
+        }
+    } else {
+        console.log("hostId уже существует в hostVans пользователя");
+    }
 }
+
+
+export async function getHostVans() {
+    const user = JSON.parse(localStorage.getItem("user"))
+    const userHostVans = user.hostVans
+    const arrayUserHostVansElements = await Promise.all(userHostVans.map(async (van) => {
+        const q = query(vansCollectionRef, where("hostId", "==", van))
+        const snapshot = await getDocs(q)
+        const vans = snapshot.docs.map(doc => ({
+            ...doc.data(),
+            id: doc.id
+        }))
+        return vans
+    }))
+    const flattenedArray = arrayUserHostVansElements.reduce((acc, curr) => [...acc, ...curr], [])
+    return flattenedArray
+}
+
+// export async function getHostVans() {
+//     const q = query(vansCollectionRef, where("hostId", "==", "123"))
+//     const snapshot = await getDocs(q)
+//     const vans = snapshot.docs.map(doc => ({
+//         ...doc.data(),
+//         id: doc.id
+//     }))
+//     return vans
+// }
 
 
 

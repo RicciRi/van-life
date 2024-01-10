@@ -1,13 +1,17 @@
 import React from "react"
 import { Link, useParams, useLocation } from "react-router-dom"
-import { getVan } from "../../api"
+import { getVan, addVansToUserHost } from "../../api"
 
 export default function VanDetail() {
     const [van, setVan] = React.useState(null)
     const [loading, setLoading] = React.useState(false)
     const [error, setError] = React.useState(null)
+    const [message, setMessage] = React.useState(false)
     const { id } = useParams()
     const location = useLocation()
+    const userInAcount = localStorage.getItem("user")
+
+
 
     React.useEffect(() => {
         async function loadVans() {
@@ -34,6 +38,16 @@ export default function VanDetail() {
 
     const search = location.state?.search || "";
     const type = location.state?.type || "all";
+
+    function rentVan() {    
+        if(!userInAcount) {
+            setMessage(true)
+        } else {
+            console.log(`add van number ${id}`)
+            addVansToUserHost(id)
+        }
+
+    }
     
     return (
         <div className="van-detail-container">
@@ -52,7 +66,12 @@ export default function VanDetail() {
                     <h2>{van.name}</h2>
                     <p className="van-price"><span>${van.price}</span>/day</p>
                     <p>{van.description}</p>
-                    <button className="link-button">Rent this van</button>
+
+                    {message && <p className="login-error" >You must login first</p>}
+                    <button 
+                    
+                    onClick={() => rentVan()}
+                    className="link-button">Rent this van</button>
                 </div>
             )}
         </div>

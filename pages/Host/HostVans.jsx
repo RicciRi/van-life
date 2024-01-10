@@ -19,7 +19,7 @@ export default function HostVans() {
                 setLoading(false)
             }
         }
-        loadVans()
+         loadVans()
     }, [])
 
     const hostVansEls = vans.map(van => (
