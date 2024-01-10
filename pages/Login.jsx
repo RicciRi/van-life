@@ -1,4 +1,5 @@
 import React from "react";
+import { MdBorderBottom } from "react-icons/md";
 import { useNavigate, useLocation, Link } from "react-router-dom"
 import { loginUser } from "../api";
 
@@ -49,9 +50,6 @@ export default function Login() {
                     <h3 className="login-error">{location.state.message}</h3>
             }
             <h1>Sign in to your account</h1>
-            <p>emeil: r@r.com; pasword: 777</p>
-
-
             {
                 error ?.message &&
                     <h3 className="login-error">{error.message}</h3>
@@ -83,7 +81,7 @@ export default function Login() {
             </form>
 
             <p>Don't having an account?</p>
-            <Link to="/registration">Create acount</Link>
+            <Link to="/registration" className="link-create-acount" >Create acount</Link>
         </div>
     )
 

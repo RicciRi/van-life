@@ -50,6 +50,24 @@ export async function loginUser(email, password) {
     return user
 }
 
+export async function checkEmail(email) {
+    const q = query(usersCollectionRef, where("email", "==", email));
+    const snapshot = await getDocs(q)
+    const array = snapshot.docs.map(doc => ({
+        ...doc.data(),
+        id: doc.id
+    }))
+    let boolean = false 
+    if(array.length === 1) {
+        boolean = false 
+    } else {
+        boolean = true 
+    }
+    return boolean 
+}
+
+
+
 
 export async function getVans() {
     const snapshot = await getDocs(vansCollectionRef)

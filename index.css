@@ -550,3 +550,12 @@ i[class*='van-type-'] {
     min-height: 300px;
     margin: 0 auto;
 }
+
+.link-create-acount{
+    border-bottom: 3px solid black;
+    font-weight: 700;
+}
+.link-create-acount:hover{
+    font-weight: 800;
+    cursor: pointer;
+}

@@ -1,13 +1,13 @@
 import React from "react"
-import { addItemToUsers } from "../api";
+import { checkEmail, addItemToUsers } from "../api";
 import { uuidv7 } from 'uuidv7';
 
 
 
 
 export default function Registration() {
-    const [formData, setFormData] = React.useState({ name: "", email:"", password: "", hostId: uuidv7() })
-
+    const [formData, setFormData] = React.useState({ name: "", email:"", password: "", hostId: uuidv7(), hostVans: [] })
+    const [usedMessage, setUsedMessage] = React.useState(false)
     function handleChange(e) {
     
         const { name, value } = e.target
@@ -16,9 +16,16 @@ export default function Registration() {
             [name]: value
         }))
     }
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault()
-        addItemToUsers(formData)
+        const createAcount = await checkEmail(formData.email)
+        
+        if(createAcount) {
+            addItemToUsers(formData)
+            setUsedMessage(false)
+        } else {
+            setUsedMessage(true)
+        }
     }
     
     return (
@@ -31,6 +38,7 @@ export default function Registration() {
                 <input name="email" onChange={handleChange} type="email" id="email" placeholder="email"/>   
                 <input name="password" onChange={handleChange} type="password" id="password" placeholder="password"/>
                 <button >registrat</button>
+                {usedMessage ? <p className="login-error">This email is already in use</p> : null}
             </form>
         </div>
     )

@@ -14,6 +14,7 @@ export default function Header() {
 
     function fakeLogOut() {
         localStorage.removeItem("loggedin")
+        location.reload();
     }
 
     return (
