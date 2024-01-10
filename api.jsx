@@ -1,54 +1,67 @@
 import {
-    getFirestore, 
-    collection, 
-    doc, 
-    getDocs, 
-    getDoc, 
+    getFirestore,
+    collection,
+    doc,
+    getDocs,
+    getDoc,
     query,
-    where, 
+    where,
     addDoc
 } from "firebase/firestore/lite"
 import { initializeApp } from "firebase/app";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCQa336dFDxzgsokVt0v4YhBGbeTOJJqg8",
-  authDomain: "vanlife-147.firebaseapp.com",
-  projectId: "vanlife-147",
-  storageBucket: "vanlife-147.appspot.com",
-  messagingSenderId: "269745453498",
-  appId: "1:269745453498:web:4b371108fe092f5d9a0583"
+    apiKey: "AIzaSyCQa336dFDxzgsokVt0v4YhBGbeTOJJqg8",
+    authDomain: "vanlife-147.firebaseapp.com",
+    projectId: "vanlife-147",
+    storageBucket: "vanlife-147.appspot.com",
+    messagingSenderId: "269745453498",
+    appId: "1:269745453498:web:4b371108fe092f5d9a0583"
 };
-
 
 const app = initializeApp(firebaseConfig)
 const database = getFirestore(app)
-
 // Refactoring the fetching functions below
 const vansCollectionRef = collection(database, "vans")
 const usersCollectionRef = collection(database, "users")
 
 
 export async function addItemToUsers(item) {
-    try{ 
+    try {
         await addDoc(usersCollectionRef, item,)
-        console.log("Регестрация прошла успешно!")
     } catch (error) {
         console.log("Ошибка при добавлении нового объекта:", error);
     }
 }
 
-export async function loginUser(email, password) {
+export function pushUserToLocalStorage(name, hostId, hostVans, id) {
+    const user = {
+        name: name,
+        hostId: hostId,
+        hostVans: hostVans,
+        id: id
+    };
+    localStorage.setItem("user", JSON.stringify(user));
+}
+
+export async function loginUser(data) {
     const snapshot = await getDocs(usersCollectionRef)
     const users = snapshot.docs.map(doc => ({
         ...doc.data(),
         id: doc.id
     }))
-
-    const user = users.filter(u => {
-        return u.email == email && u.password == password 
-    })
+    const email = data.email
+    const password = data.password
+    console.log(email)
+    console.log(password)
+    const user = users.find(u => u.email == email && u.password == password)
+    // pushUserToLocalStorage()
+    // console.log(user)
+    pushUserToLocalStorage(user.name, user.hostId, user.hostVans, user.id)
     return user
 }
+
+// loginUser("richard@mail.com", "cick")
 
 export async function checkEmail(email) {
     const q = query(usersCollectionRef, where("email", "==", email));
@@ -57,17 +70,14 @@ export async function checkEmail(email) {
         ...doc.data(),
         id: doc.id
     }))
-    let boolean = false 
-    if(array.length === 1) {
-        boolean = false 
+    let boolean = false
+    if (array.length === 1) {
+        boolean = false
     } else {
-        boolean = true 
+        boolean = true
     }
-    return boolean 
+    return boolean
 }
-
-
-
 
 export async function getVans() {
     const snapshot = await getDocs(vansCollectionRef)
@@ -99,9 +109,9 @@ export async function getHostVans() {
 
 
 
-/* 
-This 👇 isn't normally something you'd need to do. Instead, you'd 
-set up Firebase security rules so only the currently logged-in user 
+/*
+This 👇 isn't normally something you'd need to do. Instead, you'd
+set up Firebase security rules so only the currently logged-in user
 could edit their vans.
 
 https://firebase.google.com/docs/rules
