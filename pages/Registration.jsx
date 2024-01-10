@@ -47,26 +47,10 @@ export default function Registration() {
                 <input name="name" onChange={handleChange} type="text" id="name" placeholder="name" />
                 <input name="email" onChange={handleChange} type="email" id="email" placeholder="email" />
                 <input name="password" onChange={handleChange} type="password" id="password" placeholder="password" />
-                <button >registrat</button>
+                <button >registration</button>
                 {usedMessage ? <p className="login-error">This email is already in use</p> : null}
             </form>
         </div>
     )
-}
-
-
-
-
-
-
-
-
-function getUserFormLocalStorage() {
-    const user = JSON.parse(localStorage.getItem("user"))
-    console.log(user)
-}
-
-function deleteUserFormLocalStorage() {
-    localStorage.removeItem("user")
 }
 
