@@ -41,7 +41,7 @@ export default function HostVans() {
     if (loading) {
         return <h1>Loading...</h1>
     }
-
+    
     if (error) {
         return <h1>There was an error: {error.message}</h1>
     }
@@ -57,7 +57,7 @@ export default function HostVans() {
                         </section>
 
                     ) : (
-                            <h2>Loading...</h2>
+                        <h1>is empty, but you can add some vans <Link to="/vans" className="blue-link">HERE</Link></h1>
                         )
                 }
             </div>

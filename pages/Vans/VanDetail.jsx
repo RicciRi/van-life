@@ -6,7 +6,8 @@ export default function VanDetail() {
     const [van, setVan] = React.useState(null)
     const [loading, setLoading] = React.useState(false)
     const [error, setError] = React.useState(null)
-    const [message, setMessage] = React.useState(false)
+    const [errorMessage, setErrorMessage] = React.useState(false)
+    const [doneMessage, setDoneMessage] = React.useState(false)
     const { id } = useParams()
     const location = useLocation()
     const userInAcount = localStorage.getItem("user")
@@ -41,9 +42,9 @@ export default function VanDetail() {
 
     function rentVan() {    
         if(!userInAcount) {
-            setMessage(true)
+            setErrorMessage(true)
         } else {
-            console.log(`add van number ${id}`)
+            setDoneMessage(true)
             addVansToUserHost(id)
         }
 
@@ -67,7 +68,8 @@ export default function VanDetail() {
                     <p className="van-price"><span>${van.price}</span>/day</p>
                     <p>{van.description}</p>
 
-                    {message && <p className="login-error" >You must login first</p>}
+                    {errorMessage && <p className="login-error" >You must login first</p>}
+                    {doneMessage && <p className="login-done" >Done! Van added to your VanList!  </p>}
                     <button 
                     
                     onClick={() => rentVan()}

@@ -568,3 +568,8 @@ i[class*='van-type-'] {
     font-weight: 800;
     cursor: pointer;
 }
+
+
+.blue-link{
+    color: blue;
+}
