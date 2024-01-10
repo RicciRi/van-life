@@ -58,6 +58,7 @@ export default function Login() {
 
             <form onSubmit={handleSubmit} className="login-form">
                 <input
+                    required
                     name="email"
                     onChange={handleChange}
                     type="email"
@@ -65,6 +66,7 @@ export default function Login() {
                     value={loginFormData.email}
                 />
                 <input
+                    required    
                     name="password"
                     onChange={handleChange}
                     type="password"
