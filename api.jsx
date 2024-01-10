@@ -54,9 +54,12 @@ export async function loginUser(data) {
     const email = data.email
     const password = data.password
     const user = users.find(u => u.email == email && u.password == password)
-    // pushUserToLocalStorage()
-    // console.log(user)
-    pushUserToLocalStorage(user.name, user.hostId, user.hostVans, user.id)
+    console.log(user)
+    // if(user) {
+        pushUserToLocalStorage(user.name, user.hostId, user.hostVans, user.id)
+
+    // }
+
     return user
 }
 
