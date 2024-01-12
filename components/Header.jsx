@@ -1,10 +1,12 @@
 import React from "react"
-import { Link, NavLink } from "react-router-dom"
+import { Link, NavLink, useNavigate } from "react-router-dom"
 import { MdOutlineAccountCircle } from "react-icons/md";
 import { IoIosLogOut } from "react-icons/io";
 
 
 export default function Header() {
+    const navigate = useNavigate()
+
     const userAccount = localStorage.getItem("user")
     const activeStyles = {
         fontWeight: "bold",
@@ -15,6 +17,7 @@ export default function Header() {
     
     function LogOut() {
         localStorage.removeItem("user")
+        navigate("/")
         location.reload();
     }
 
