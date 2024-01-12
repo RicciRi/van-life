@@ -80,7 +80,7 @@ export default function Login() {
         loginUser(loginFormData) 
             .then(data => {
                 setError(null)
-                navigate(from, { replace: true })
+                navigate("/", { replace: true })
                 
             })
             .catch(err => {
