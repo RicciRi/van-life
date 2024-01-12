@@ -47,7 +47,7 @@ export default function FormHost() {
     function handleSubmit(e) {
         e.preventDefault()
         addVansToUserHost(vanId.toString())
-        navigate("/host/vans")
+        navigate("/vans", { replace: true })
     }
 
     return (

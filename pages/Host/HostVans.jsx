@@ -6,6 +6,7 @@ export default function HostVans() {
     const [vans, setVans] = React.useState([])
     const [loading, setLoading] = React.useState(false)
     const [error, setError] = React.useState(null)
+    const [userData, setUserData] = React.useState(localStorage.getItem("user"))
 
     React.useEffect(() => {
         async function loadVans() {
@@ -20,7 +21,7 @@ export default function HostVans() {
             }
         }
          loadVans()
-    }, [])
+    }, [userData])
 
     const hostVansEls = vans.map(van => (
         <Link
