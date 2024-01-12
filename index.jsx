@@ -14,6 +14,7 @@ import Reviews from './pages/Host/Reviews';
 import Income from './pages/Host/Income';
 import Dashboard from './pages/Host/Dashboard'
 import HostVans from './pages/Host/HostVans';
+import FormHost from './pages/FormHost';
 import HostVanDetail from "./pages/Host/HostVanDetail"
 import HostVanInfo from "./pages/Host/HostVanInfo"
 import HostVanPhotos from "./pages/Host/HostVanPhotos"
@@ -22,14 +23,6 @@ import NotFound from './pages/NotFound';
 import "./server"
 
 function App() {
-  /**
-   * Challenge: Create the AuthRequired Layout Route to protect
-   * all the /host routes.
-   * 
-   * For now, just use `const authenticated = false`
-   * to determine the authenticated status of the user, and
-   * either send them to the /login route, or render the Outlet
-   */
 
   return (
     <BrowserRouter>
@@ -51,6 +44,7 @@ function App() {
               <Route path="income" element={<Income />} />
               <Route path="reviews" element={<Reviews />} />
               <Route path="vans" element={<HostVans />} />
+              <Route path="form" element={<FormHost />} />
               <Route path="vans/:id" element={<HostVanDetail />}>
                 <Route index element={<HostVanInfo />} />
                 <Route path="pricing" element={<HostVanPricing />} />

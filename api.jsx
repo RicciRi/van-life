@@ -35,12 +35,14 @@ export async function addItemToUsers(item) {
     }
 }
 
-export function pushUserToLocalStorage(name, hostId, hostVans, id) {
+export function pushUserToLocalStorage(name, hostId, hostVans, id, email, password) {
     const user = {
         name: name,
         hostId: hostId,
         hostVans: hostVans,
-        id: id
+        id: id,
+        email: email, 
+        password: password
     };
     localStorage.setItem("user", JSON.stringify(user));
 }
@@ -54,16 +56,10 @@ export async function loginUser(data) {
     const email = data.email
     const password = data.password
     const user = users.find(u => u.email == email && u.password == password)
-    console.log(user)
-    // if(user) {
-        pushUserToLocalStorage(user.name, user.hostId, user.hostVans, user.id)
-
-    // }
-
+        pushUserToLocalStorage(user.name, user.hostId, user.hostVans, user.id, user.email, user.password)
     return user
 }
 
-// loginUser("richard@mail.com", "cick")
 
 export async function checkEmail(email) {
     const q = query(usersCollectionRef, where("email", "==", email));
@@ -136,6 +132,20 @@ export async function addVansToUserHost(id) {
 }
 
 
+export async function changeUserinfo(newUserInfo) {
+    console.log(newUserInfo)
+    const docRef = doc(database, "users", newUserInfo.id )
+
+    const docSnap = await getDoc(docRef, newUserInfo)
+    const userData = docSnap.data()
+
+    userData.name = newUserInfo.name
+    userData.email = newUserInfo.email
+    userData.password = newUserInfo.password
+
+    await setDoc(docRef, userData)
+}
+
 export async function getHostVans() {
     const user = JSON.parse(localStorage.getItem("user"))
     const userHostVans = user.hostVans
@@ -151,45 +161,3 @@ export async function getHostVans() {
     const flattenedArray = arrayUserHostVansElements.reduce((acc, curr) => [...acc, ...curr], [])
     return flattenedArray
 }
-
-// export async function getHostVans() {
-//     const q = query(vansCollectionRef, where("hostId", "==", "123"))
-//     const snapshot = await getDocs(q)
-//     const vans = snapshot.docs.map(doc => ({
-//         ...doc.data(),
-//         id: doc.id
-//     }))
-//     return vans
-// }
-
-
-
-/*
-This 👇 isn't normally something you'd need to do. Instead, you'd
-set up Firebase security rules so only the currently logged-in user
-could edit their vans.
-
-https://firebase.google.com/docs/rules
-
-I'm just leaving this here for educational purposes, as it took
-me a while to find the `documentId()` function that allows you
-to use a where() filter on a document's ID property. (Since normally
-it only looks at the data() properties of the document, meaning you
-can't do `where("id", "==", id))`
-
-It also shows how you can chain together multiple `where` filter calls
-*/
-
-// export async function getHostVan(id) {
-//     const q = query(
-//         vansCollectionRef,
-//         where(documentId(), "==", id),
-//         where("hostId", "==", "123")
-//     )
-//     const snapshot = await getDocs(q)
-//     const vans = snapshot.docs.map(doc => ({
-//         ...doc.data(),
-//         id: doc.id
-//     }))
-//     return vans[0]
-// }

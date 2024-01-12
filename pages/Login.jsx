@@ -1,12 +1,66 @@
 import React from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom"
-import { loginUser } from "../api";
+import { loginUser, changeUserinfo } from "../api";
 
 
 export default function Login() {
     const isLoggedIn = JSON.parse(localStorage.getItem("user"))
     if(isLoggedIn){
-        return <h1>{isLoggedIn.name}, You alredy login!</h1>
+        const userData = JSON.parse(localStorage.getItem("user"))
+
+
+        const [data, setData] = React.useState({
+            name: userData.name,
+            email: userData.email,
+            password: userData.password
+        })
+        
+
+
+        function handleChange(e) {
+            setData(prev => ({
+                ...prev,
+                [e.target.name]: e.target.value
+            }))
+        }
+
+
+        function handleSubmit(e) {
+            e.preventDefault()
+
+            userData.name = data.name
+            userData.email = data.email
+            userData.password = data.password
+
+
+            localStorage.setItem("user", JSON.stringify(userData))
+            changeUserinfo(userData)
+        }
+
+
+
+        return (
+            <div>
+                <h1>Account settings</h1>
+
+                <form onSubmit={handleSubmit} className="change-form">
+                    <div>
+                        <label htmlFor="name">name: </label>
+                        <input id="name" name="name" onChange={handleChange} type="text" value={data.name}/>
+                    </div>
+                    <div>
+                       <label htmlFor="email">email:</label>
+                        <input id="email" name="email" onChange={handleChange} type="email" value={data.email}/>
+                    </div>
+                    <div>
+                        <label htmlFor="password">password:</label>
+                        <input id="password" name="password" onChange={handleChange} type="password" minLength="8"  value={data.password} />
+                    </div>
+                    <button>Change info</button>
+                </form>
+            </div>
+        )
+
     }
 
     const [loginFormData, setLoginFormData] = React.useState({ email: "", password: "" })
@@ -27,13 +81,16 @@ export default function Login() {
             .then(data => {
                 setError(null)
                 navigate(from, { replace: true })
+                
             })
             .catch(err => {
                 setError(err)
             })
             .finally(() => {
                 setStatus("idle")
+                window.location.reload()
             })
+
     }
 
     function handleChange(e) {
@@ -71,6 +128,7 @@ export default function Login() {
                     onChange={handleChange}
                     type="password"
                     placeholder="Password"
+                    minLength="8" 
                     value={loginFormData.password}
                 />
                 <button
@@ -83,127 +141,10 @@ export default function Login() {
                 </button>
             </form>
 
-            <p>Don't having an account?</p>
-            <Link to="/registration" className="link-create-acount" >Create acount</Link>
+            <p>Don't having an account?
+                <Link to="/registration" className="link-create-acount" >Create one now</Link>
+            </p>
         </div>
     )
 
 }
-
-
-
-
-
-
-
-
-
-
-
-// import React from "react";
-// import { MdBorderBottom } from "react-icons/md";
-// import { useNavigate, useLocation, Link } from "react-router-dom"
-// import { loginUser } from "../api";
-
-
-// export default function Login() {
-//     const isLoggedIn = localStorage.getItem("loggedin")
-//     if(isLoggedIn){
-//         return <h1>You alredy login!</h1>
-//     }
-
-    
-//     const [loginFormData, setLoginFormData] = React.useState({ email: "", password: "" })
-//     const [status, setStatus] = React.useState("idle")
-//     const [error, setError] = React.useState(null)
-
-//     const location = useLocation()
-//     const navigate = useNavigate()
-//     const from = location.state?.from || "/host"
-
-//     function pushUserToLocalStorage( name, hostId, hostVans ) {
-//         var user = {
-//             name: name,
-//             hostId: hostId,
-//             hostVans: hostVans
-//         };
-    
-//         localStorage.setItem("user", JSON.stringify(user));
-//     }
-
-//     function handleSubmit(e) {
-//         e.preventDefault()
-//         setStatus("submitting")
-//         loginUser(loginFormData)
-//             .then(data => {
-//                 console.log(data)
-//                 setError(null)
-//                 localStorage.setItem("loggedin", true)
-//                 navigate(from, { replace: true })
-
-                
-
-
-
-
-
-//             })
-//             .catch(err => {
-//                 setError(err)
-//             })
-//             .finally(() => {
-//                 setStatus("idle")
-//             })
-//     }
-
-//     function handleChange(e) {
-//         const { name, value } = e.target
-//         setLoginFormData(prev => ({
-//             ...prev,
-//             [name]: value
-//         }))
-//     }
-
-//     return (
-//         <div className="login-container">
-//             {
-//                 location.state ?.message &&
-//                     <h3 className="login-error">{location.state.message}</h3>
-//             }
-//             <h1>Sign in to your account</h1>
-//             {
-//                 error ?.message &&
-//                     <h3 className="login-error">{error.message}</h3>
-//             }
-
-//             <form onSubmit={handleSubmit} className="login-form">
-//                 <input
-//                     name="email"
-//                     onChange={handleChange}
-//                     type="email"
-//                     placeholder="Email address"
-//                     value={loginFormData.email}
-//                 />
-//                 <input
-//                     name="password"
-//                     onChange={handleChange}
-//                     type="password"
-//                     placeholder="Password"
-//                     value={loginFormData.password}
-//                 />
-//                 <button
-//                     disabled={status === "submitting"}
-//                 >
-//                     {status === "submitting"
-//                         ? "Logging in..."
-//                         : "Log in"
-//                     }
-//                 </button>
-//             </form>
-
-//             <p>Don't having an account?</p>
-//             <Link to="/registration" className="link-create-acount" >Create acount</Link>
-//         </div>
-//     )
-
-// }

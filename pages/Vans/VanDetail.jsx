@@ -1,5 +1,5 @@
 import React from "react"
-import { Link, useParams, useLocation } from "react-router-dom"
+import { Link, useParams, useLocation, useNavigate } from "react-router-dom"
 import { getVan, addVansToUserHost } from "../../api"
 
 export default function VanDetail() {
@@ -11,6 +11,7 @@ export default function VanDetail() {
     const { id } = useParams()
     const location = useLocation()
     const userInAcount = localStorage.getItem("user")
+    const navigate = useNavigate()
 
 
 
@@ -40,14 +41,17 @@ export default function VanDetail() {
     const search = location.state?.search || "";
     const type = location.state?.type || "all";
 
-    function rentVan() {    
+    async function rentVan() {    
+        localStorage.removeItem("hostVanId");
         if(!userInAcount) {
             setErrorMessage(true)
         } else {
             setDoneMessage(true)
-            addVansToUserHost(id)
-        }
+            localStorage.setItem("hostVanId", `${id}`)
+            navigate("/host/form?")
 
+        }
+        
     }
     
     return (

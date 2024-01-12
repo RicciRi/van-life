@@ -5,14 +5,15 @@ import { IoIosLogOut } from "react-icons/io";
 
 
 export default function Header() {
-    
+    const userAccount = localStorage.getItem("user")
     const activeStyles = {
         fontWeight: "bold",
         textDecoration: "underline",
         color: "#161616"
     }
 
-    function fakeLogOut() {
+    
+    function LogOut() {
         localStorage.removeItem("user")
         location.reload();
     }
@@ -45,7 +46,8 @@ export default function Header() {
                 >
                     <MdOutlineAccountCircle className="login-icon" />
                 </NavLink> 
-                 <button className="logOut-button" onClick={fakeLogOut}><IoIosLogOut className="login-icon" /></button> 
+                {userAccount && <button className="logOut-button" onClick={LogOut}><IoIosLogOut className="login-icon" /></button> 
+}
             </nav>
         </header>
     )
