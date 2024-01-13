@@ -57,19 +57,23 @@ export default function HostVans() {
 
     return (
         <section>
-            <h1 className="host-vans-title">Your listed vans</h1>
-            <div className="host-vans-list">
-                {
-                    vans.length > 0 ? (
+            {vans.length === 0 ? (
+                <>
+                    <h1>Your host-list is empty</h1>
+                    <h2>
+                        but you can add some <Link to="/vans" className="vans-link">HERE</Link>
+                    </h2> 
+                </>
+            ) : (
+                <>
+                    <h1 className="host-vans-title">Your listed vans</h1>
+                    <div className="host-vans-list">
                         <section>
                             {hostVansEls}
                         </section>
-
-                    ) : (
-                        <h1>is empty, but you can add some vans <Link to="/vans" className="blue-link">HERE</Link></h1>
-                        )
-                }
-            </div>
+                    </div>
+                </>
+            )}
         </section>
-    )
+    );
 }
