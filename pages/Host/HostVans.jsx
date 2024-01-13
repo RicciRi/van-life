@@ -1,6 +1,6 @@
 import React from "react"
 import { Link } from "react-router-dom"
-import { getHostVans } from "../../api"
+import { getHostVans, deleteVansFromHost } from "../../api"
 
 export default function HostVans() {
     const [vans, setVans] = React.useState([])
@@ -23,6 +23,13 @@ export default function HostVans() {
          loadVans()
     }, [userData])
 
+
+    async function stopHosting(e, id) {
+        e.preventDefault();
+        await deleteVansFromHost(id)
+        location.reload()
+    }
+
     const hostVansEls = vans.map(van => (
         <Link
             to={van.id}
@@ -35,6 +42,7 @@ export default function HostVans() {
                     <h3>{van.name}</h3>
                     <p>${van.price}/day</p>
                 </div>
+                <button onClick={(e) => stopHosting(e, van.id)} className="delete-host-van">Stop hosting</button>
             </div>
         </Link>
     ))
@@ -43,7 +51,7 @@ export default function HostVans() {
         return <h1>Loading...</h1>
     }
     
-    if (error) {
+    if (error) {n
         return <h1>There was an error: {error.message}</h1>
     }
 

@@ -1,26 +1,31 @@
 import React from "react"
 import { Link, useParams, useLocation, useNavigate } from "react-router-dom"
-import { getVan, addVansToUserHost } from "../../api"
+import { getVan } from "../../api"
 
 export default function VanDetail() {
     const [van, setVan] = React.useState(null)
     const [loading, setLoading] = React.useState(false)
     const [error, setError] = React.useState(null)
     const [errorMessage, setErrorMessage] = React.useState(false)
-    const [doneMessage, setDoneMessage] = React.useState(false)
+    const [alredyRentVan, setAlredyRentVan] = React.useState(false)
     const { id } = useParams()
     const location = useLocation()
     const userInAcount = localStorage.getItem("user")
     const navigate = useNavigate()
 
 
-
     React.useEffect(() => {
         async function loadVans() {
             setLoading(true)
             try {
-                const data = await getVan(id)
-                setVan(data)
+                const van = await getVan(id)
+                 setVan(van)
+                 const user = JSON.parse(localStorage.getItem("user"))
+                 const alredyRent = user.hostVans.filter(id => van.hostId.includes(id) )
+                 if(alredyRent[0]) {
+                    setAlredyRentVan(true)
+                 }
+                 
             } catch (err) {
                 setError(err)
             } finally {
@@ -46,7 +51,6 @@ export default function VanDetail() {
         if(!userInAcount) {
             setErrorMessage(true)
         } else {
-            setDoneMessage(true)
             localStorage.setItem("hostVanId", `${id}`)
             navigate("/host/form?")
 
@@ -73,9 +77,9 @@ export default function VanDetail() {
                     <p>{van.description}</p>
 
                     {errorMessage && <p className="login-error" >You must login first</p>}
-                    {doneMessage && <p className="login-done" >Done! Van added to your VanList!  </p>}
+                    {alredyRentVan && <p className="done-message" >You alredy renting this van!</p>}
                     <button 
-                    
+                    disabled={alredyRentVan}
                     onClick={() => rentVan()}
                     className="link-button">Rent this van</button>
                 </div>

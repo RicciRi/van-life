@@ -10,6 +10,7 @@ import {
     setDoc
 } from "firebase/firestore/lite"
 import { initializeApp } from "firebase/app";
+import { json } from "react-router-dom";
 
 const firebaseConfig = {
     apiKey: "AIzaSyCQa336dFDxzgsokVt0v4YhBGbeTOJJqg8",
@@ -130,6 +131,26 @@ export async function addVansToUserHost(id) {
         console.log("hostId уже существует в hostVans пользователя");
     }
 }
+
+export async function deleteVansFromHost(id) {
+    const van = await getVan(id.toString())
+    const vanHostId = van.hostId
+    const user = JSON.parse(localStorage.getItem("user"))
+
+    if(user.hostVans) {
+        user.hostVans = user.hostVans.filter(hostedId => hostedId !== vanHostId)
+
+        localStorage.setItem("user", JSON.stringify(user))
+        const docRef = doc(database, "users", user.id)
+
+        const docSnap = await getDoc(docRef, user.id)
+        await setDoc(docRef, user)
+    }
+
+    
+
+}
+
 
 
 export async function changeUserinfo(newUserInfo) {

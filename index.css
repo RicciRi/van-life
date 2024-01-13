@@ -341,6 +341,9 @@ i[class*='van-type-'] {
     color: white;
     font-size: 1.125rem;
 }
+.van-detail button:disabled{
+    background-color: #ced4da ;
+}
 
 .host-nav {
     display: flex;
@@ -380,6 +383,27 @@ i[class*='van-type-'] {
     margin-bottom: 15px;
     padding-block: 18px;
     padding-left: 24px;
+}
+
+.done-message{
+    font-size: 20px;
+    font-weight: 700;
+    color: #115E59;
+}
+.host-van-single > button {
+    margin: 0 17px 0 auto ;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: "Inter", sans-serif;
+    background-color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.host-van-single > button:hover {
+    border: 2px solid black ;
 }
 
 .host-van-single > img {
