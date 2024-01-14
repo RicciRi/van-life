@@ -42,10 +42,10 @@ function App() {
           <Route element={<AuthRequired />}>
             <Route path="settings" element={<AccountSettings />} />
             <Route path="host" element={<HostLayout />}>
-              <Route index element={<Dashboard />} />
+              {/* <Route index element={<Dashboard />} /> */}
               <Route path="income" element={<Income />} />
               <Route path="reviews" element={<Reviews />} />
-              <Route path="vans" element={<HostVans />} />
+              <Route index element={<HostVans />} />
               <Route path="form" element={<FormHost />} />
               <Route path="vans/:id" element={<HostVanDetail />}>
                 <Route index element={<HostVanInfo />} />
