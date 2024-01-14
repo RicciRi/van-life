@@ -27,7 +27,7 @@ export default function HostVans() {
     async function stopHosting(e, id) {
         e.preventDefault();
         await deleteVansFromHost(id)
-        location.reload()
+        setUserData(localStorage.getItem("user"))
     }
 
     const hostVansEls = vans.map(van => (

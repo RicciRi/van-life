@@ -52,7 +52,7 @@ export default function VanDetail() {
             setErrorMessage(true)
         } else {
             localStorage.setItem("hostVanId", `${id}`)
-            navigate("/host/form?")
+            navigate("/host/form")
 
         }
         

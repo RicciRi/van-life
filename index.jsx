@@ -8,13 +8,14 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Login from "./pages/Login"
 import Registration from './pages/Registration';
+import AccountSettings from './pages/AccountSettings';
 import Vans from "./pages/Vans/Vans";
 import VanDetail from "./pages/Vans/VanDetail";
 import Reviews from './pages/Host/Reviews';
 import Income from './pages/Host/Income';
 import Dashboard from './pages/Host/Dashboard'
 import HostVans from './pages/Host/HostVans';
-import FormHost from './pages/FormHost';
+import FormHost from './pages/Host/FormHost';
 import HostVanDetail from "./pages/Host/HostVanDetail"
 import HostVanInfo from "./pages/Host/HostVanInfo"
 import HostVanPhotos from "./pages/Host/HostVanPhotos"
@@ -39,6 +40,7 @@ function App() {
           <Route path='/registration' element={<Registration />} /> 
 
           <Route element={<AuthRequired />}>
+            <Route path="settings" element={<AccountSettings />} />
             <Route path="host" element={<HostLayout />}>
               <Route index element={<Dashboard />} />
               <Route path="income" element={<Income />} />

@@ -6,7 +6,6 @@ import { IoIosLogOut } from "react-icons/io";
 
 export default function Header() {
     const navigate = useNavigate()
-
     const userAccount = localStorage.getItem("user")
     const activeStyles = {
         fontWeight: "bold",
@@ -44,7 +43,7 @@ export default function Header() {
                     Vans
                 </NavLink>
                  <NavLink 
-                    to="/login"
+                    to={userAccount ? "/settings" : "/login"}
                     className={({isActive}) => isActive ? "active-link" : null}
                 >
                     <MdOutlineAccountCircle className="login-icon" />

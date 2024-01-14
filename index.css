@@ -520,6 +520,10 @@ i[class*='van-type-'] {
     align-items: center;
     padding-inline: 27px;
 }
+.login-container p{
+    display: flex;
+    margin: 20px auto;
+}
 
 .login-form {
     display: flex;
@@ -555,7 +559,7 @@ i[class*='van-type-'] {
     border: none;
     border-radius: 6px;
     height: 55px;
-    margin-top: 22px;
+    margin: 22px 0 0 0;
     color: white;
     font-family: "Inter", sans-serif;
     cursor: pointer;
@@ -570,6 +574,7 @@ i[class*='van-type-'] {
     background-color: #FFF7ED;
     cursor: pointer;
 }
+
 
 .registr-form{
     display: flex;
@@ -600,6 +605,8 @@ i[class*='van-type-'] {
 }
 
 .change-form {
+    display: flex;
+    flex-direction: column;
     padding: 10px;
     width: 400px;
 }
@@ -608,7 +615,7 @@ i[class*='van-type-'] {
     justify-content: space-between;
     align-items: center;
     max-width: 260px;
-    margin: 10px;
+    margin: 10px 0 10px 60px;
 }
 .change-form label {
     font-size: 16px;
@@ -621,7 +628,7 @@ i[class*='van-type-'] {
     border: none;
     border-radius: 6px;
     padding: 10px;
-    margin: 20px 0;
+    margin: 22px auto 10px auto;
     color: white;
     font-family: "Inter", sans-serif;
     cursor: pointer;
@@ -673,7 +680,7 @@ i[class*='van-type-'] {
     border: none;
     border-radius: 6px;
     height: 55px;
-    margin-top: 22px;
+    margin: 22px 0 0 0;
     color: white;
     font-family: "Inter", sans-serif;
     cursor: pointer;
