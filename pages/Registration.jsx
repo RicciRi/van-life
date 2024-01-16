@@ -51,7 +51,7 @@ export default function Registration() {
                 <button >registration</button>
                 <p>
                     Do you have an account?
-                    <Link className="link-create-acount">Log in</Link>
+                    <Link to="/login" className="link-create-acount">Log in</Link>
                 </p>
 
             </form>
