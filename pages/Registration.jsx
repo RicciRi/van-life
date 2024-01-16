@@ -44,9 +44,9 @@ export default function Registration() {
                 className="login-form"
                 onSubmit={handleSubmit}
                 >
-                <input required name="name" onChange={handleChange} type="text" id="name" placeholder="name" />
-                <input required name="email" onChange={handleChange} type="email" id="email" placeholder="email" />
-                <input required name="password" onChange={handleChange} type="password" id="password" placeholder="password" minLength="8"  />
+                <input required name="name" onChange={handleChange} type="text" id="name" placeholder="Name" />
+                <input required name="email" onChange={handleChange} type="email" id="email" placeholder="Email" />
+                <input required name="password" onChange={handleChange} type="password" id="password" placeholder="Password" minLength="8"  />
                 {usedMessage ? <p className="login-error">This email is already in use</p> : null}
                 <button >registration</button>
                 <p>

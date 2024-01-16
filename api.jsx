@@ -99,8 +99,6 @@ export async function getVan(id) {
 export async function addVansToUserHost(id) {
     const van = await getVan(id);
     const vanHostId = van.hostId;
-
-    // Получаем текущего пользователя
     const user = JSON.parse(localStorage.getItem("user"));
 
     // Проверяем, существует ли уже vanHostId в hostVans пользователя
@@ -147,14 +145,11 @@ export async function deleteVansFromHost(id) {
         await setDoc(docRef, user)
     }
 
-    
-
 }
 
 
 
 export async function changeUserinfo(newUserInfo) {
-    console.log(newUserInfo)
     const docRef = doc(database, "users", newUserInfo.id )
 
     const docSnap = await getDoc(docRef, newUserInfo)

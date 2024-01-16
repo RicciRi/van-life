@@ -1,4 +1,5 @@
 import React from "react"
+import { changeUserinfo } from "../api"
 
 export default function AccountSettings() {
     const userData = JSON.parse(localStorage.getItem("user"))
