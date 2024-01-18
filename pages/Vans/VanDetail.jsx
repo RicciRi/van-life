@@ -13,6 +13,8 @@ export default function VanDetail() {
     const userInAcount = localStorage.getItem("user")
     const navigate = useNavigate()
 
+    
+
 
     React.useEffect(() => {
         async function loadVans() {
@@ -20,10 +22,14 @@ export default function VanDetail() {
             try {
                 const van = await getVan(id)
                  setVan(van)
+                 
                  const user = JSON.parse(localStorage.getItem("user"))
-                 const alredyRent = user.hostVans.filter(id => van.hostId.includes(id) )
-                 if(alredyRent[0]) {
-                    setAlredyRentVan(true)
+                 console.log(user)
+                 if(user){
+                     const alredyRent = user.hostVans.filter(id => van.hostId.includes(id) )
+                     if(alredyRent[0]) {
+                        setAlredyRentVan(true)
+                     }
                  }
                  
             } catch (err) {
