@@ -22,9 +22,8 @@ export default function VanDetail() {
             try {
                 const van = await getVan(id)
                  setVan(van)
-                 
                  const user = JSON.parse(localStorage.getItem("user"))
-                 console.log(user)
+                 console.log("tyt")
                  if(user){
                      const alredyRent = user.hostVans.filter(id => van.hostId.includes(id) )
                      if(alredyRent[0]) {
