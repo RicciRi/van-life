@@ -4,20 +4,25 @@ import { getVan, addVansToUserHost } from "../../api";
 
 export default function FormHost() {
     const [cardNumber, setCardNumber] = React.useState("");
-    const vanId = JSON.parse(localStorage.getItem("hostVanId"))
+    const [vanId, setVanId] = React.useState(localStorage.getItem("hostVanId"))
     const [van, setVan] = React.useState(null)
+    const [loading, setLoading] = React.useState(false)
     const navigate = useNavigate()
 
     useEffect(() => {
         async function fetchData() {
             try {
+                setLoading(true)
                 if (vanId) {
                     const vanData = await getVan(vanId.toString());
                     setVan(vanData);
                 }
             } catch (error) {
                 console.log(error)
+            } finally {
+                setLoading(false)
             }
+            
 
         };
 
@@ -49,6 +54,10 @@ export default function FormHost() {
         e.preventDefault()
         addVansToUserHost(vanId.toString())
         navigate("/vans", { replace: true })
+    }
+
+    if(loading) {
+        return <h1>Loading...</h1>
     }
 
     return (

@@ -5,19 +5,17 @@ import { loginUser, changeUserinfo } from "../api";
 
 export default function Login() {
     const isLoggedIn = JSON.parse(localStorage.getItem("user"))
-
+    if(isLoggedIn) {
+        return <h1>You are alredy login!</h1>
+    }
 
     const [loginFormData, setLoginFormData] = React.useState({ email: "", password: "" })
     const [status, setStatus] = React.useState("idle")
     const [error, setError] = React.useState(null)
-    const [user, setUser] = React.useState([])
-
     const location = useLocation()
     const navigate = useNavigate()
-    const from = location.state?.from || "/host"
     
-
-
+    
     function handleSubmit(e) {
         e.preventDefault()
         setStatus("submitting")
