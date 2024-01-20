@@ -15,7 +15,7 @@ export default function Login() {
     const location = useLocation()
     const navigate = useNavigate()
     const from = location.state?.from || "/host"
-
+    
 
 
     function handleSubmit(e) {
@@ -25,14 +25,12 @@ export default function Login() {
             .then(data => {
                 setError(null)
                 navigate("/", { replace: true })
-                
             })
             .catch(err => {
                 setError(err)
             })
             .finally(() => {
                 setStatus("idle")
-                window.location.reload()
             })
 
     }
