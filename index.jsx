@@ -5,9 +5,11 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Layout from './components/Layout';
 import HostLayout from './components/HostLayout';
 import AuthRequired from './components/AuthRequired';
+import ExitRequired from './components/ExitRequired';
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Login from "./pages/Login"
+import Logout from './pages/Logout';
 import Registration from './pages/Registration';
 import AccountSettings from './pages/AccountSettings';
 import Vans from "./pages/Vans/Vans";
@@ -34,11 +36,14 @@ function App() {
           <Route path="about" element={<About />} />
           <Route path="vans" element={<Vans />} />
           <Route path="vans/:id" element={<VanDetail />} />
-          <Route
-            path="login"
-            element={<Login />}
-          />
-          <Route path='/registration' element={<Registration />} /> 
+          <Route element={<ExitRequired />} >
+            <Route 
+              path="login"
+              element={<Login />}
+            />
+            <Route path='/registration' element={<Registration />} /> 
+          </Route>
+          <Route path='/logout' element={<Logout />} />
 
           <Route element={<AuthRequired />}>
             <Route path="settings" element={<AccountSettings />} />

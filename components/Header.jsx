@@ -48,7 +48,7 @@ export default function Header() {
                 >
                     <MdOutlineAccountCircle className="login-icon" />
                 </NavLink> 
-                {userAccount && <button className="logOut-button" onClick={LogOut}><IoIosLogOut className="login-icon" /></button> 
+                {userAccount && <button className="logOut-link"  onClick={LogOut}><IoIosLogOut className="login-icon" /></button> 
 }
             </nav>
         </header>

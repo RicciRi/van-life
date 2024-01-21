@@ -8,7 +8,7 @@ html, body {
     background-color: #FFF7ED;
     font-family: "Inter", sans-serif;
 }
-
+logOut
 a {
     text-decoration: unset;
     color: unset;
@@ -569,11 +569,27 @@ i[class*='van-type-'] {
     color: red;
 }
 
-.logOut-button{
+.logOut-link{
     border: none;
     background-color: #FFF7ED;
     cursor: pointer;
 }
+
+.logOut-button{
+    display: flex;
+    background-color: #FF8C38;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 40px;
+    margin: 10px ;
+    color: white;
+    font-family: "Inter", sans-serif;
+    cursor: pointer;
+}
+.logOut-button:hover{
+    color: #4D4D4D;
+}
+
 
 
 .registr-form{
@@ -692,3 +708,5 @@ input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
+
