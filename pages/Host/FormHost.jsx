@@ -1,30 +1,29 @@
-import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { getVan, addVansToUserHost } from "../../api";
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { getVan, addVansToUserHost } from '../../api';
 
 export default function FormHost() {
-    const [cardNumber, setCardNumber] = React.useState("");
-    const [vanId, setVanId] = React.useState(localStorage.getItem("hostVanId"))
-    const [van, setVan] = React.useState(null)
-    const [loading, setLoading] = React.useState(false)
-    const navigate = useNavigate()
+    const [cardNumber, setCardNumber] = React.useState('');
+    const [vanId, setVanId] = React.useState(localStorage.getItem('hostVanId'));
+    const [van, setVan] = React.useState(null);
+    const [hostDays, setHostDays] = React.useState(1);
+    const [loading, setLoading] = React.useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         async function fetchData() {
             try {
-                setLoading(true)
+                setLoading(true);
                 if (vanId) {
                     const vanData = await getVan(vanId.toString());
                     setVan(vanData);
                 }
             } catch (error) {
-                console.log(error)
+                console.log(error);
             } finally {
-                setLoading(false)
+                setLoading(false);
             }
-            
-
-        };
+        }
 
         fetchData();
     }, [vanId]);
@@ -38,10 +37,10 @@ export default function FormHost() {
         let input = e.target.value;
 
         // Удаляем все нецифровые символы
-        input = input.replace(/\D/g, "");
+        input = input.replace(/\D/g, '');
 
         // Добавляем пробелы каждые 4 цифры
-        input = input.replace(/(\d{4})/g, "$1 ");
+        input = input.replace(/(\d{4})/g, '$1 ');
 
         // Удаляем пробелы в конце строки
         input = input.trim();
@@ -51,18 +50,31 @@ export default function FormHost() {
     };
 
     function handleSubmit(e) {
-        e.preventDefault()
-        addVansToUserHost(vanId.toString())
-        navigate("/vans", { replace: true })
+        e.preventDefault();
+
+        const today = new Date();
+        const day = String(today.getDate()).padStart(2, '0');
+        const month = String(today.getMonth() + 1).padStart(2, '0'); // Месяцы в JavaScript начинаются с 0
+        const year = today.getFullYear();
+        const formattedDate = `${day}/${month}/${year}`;
+        const totalPrice = (hostDays * van.price).toString();
+
+        addVansToUserHost(vanId.toString(), totalPrice, formattedDate);
+        navigate('/vans', { replace: true });
     }
 
-    if(loading) {
-        return <h1>Loading...</h1>
+    function handleChangeDays(e) {
+        setHostDays(e.target.value);
+    }
+
+    if (loading) {
+        return <h1>Loading...</h1>;
     }
 
     return (
         <>
-                {van &&
+            {van && (
+                <>
                     <div className="host-van-single" key={van.id}>
                         <img src={van.imageUrl} alt={`Photo of ${van.name}`} />
                         <div className="host-van-info">
@@ -70,9 +82,30 @@ export default function FormHost() {
                             <p>${van.price}/day</p>
                         </div>
                     </div>
-                }
+                    <div className="choose-days-section">
+                        <p>Choose the number of days for car rental</p>
+                        <div>
+                            <select
+                                type="number"
+                                name="days"
+                                id="numberSelector"
+                                value={hostDays}
+                                maxLength={2}
+                                onChange={handleChangeDays}
+                            >
+                                {[...Array(30).keys()].map((number) => (
+                                    <option key={number + 1} value={number + 1}>
+                                        {number + 1}
+                                    </option>
+                                ))}
+                            </select>
+                            <h2>Price: {hostDays * van.price}$</h2>
+                        </div>
+                    </div>
+                </>
+            )}
             <div className="host-form-container">
-            <h1>Rent {van && van.name}</h1>
+                <h1>Rent {van && van.name}</h1>
                 <form onSubmit={handleSubmit} className="host-form">
                     <div>
                         <label htmlFor="firstName">First Name:</label>
@@ -81,7 +114,8 @@ export default function FormHost() {
                             type="text"
                             name="firstName"
                             id="firstName"
-                            placeholder="" />
+                            placeholder=""
+                        />
                     </div>
                     <div>
                         <label htmlFor="secondName">Second Name:</label>
@@ -89,7 +123,8 @@ export default function FormHost() {
                             required
                             type="text"
                             name="secondName"
-                            id="secondName" />
+                            id="secondName"
+                        />
                     </div>
                     <div>
                         <label htmlFor="cardNumber">Card number:</label>
@@ -101,6 +136,7 @@ export default function FormHost() {
                             value={cardNumber}
                             onChange={handleCardNumberChange}
                             maxLength={19}
+                            minLength={19}
                         />
                     </div>
                     <div>
@@ -110,15 +146,15 @@ export default function FormHost() {
                             type="number"
                             name="cvv"
                             id="cvv"
-                            minLength={3}
                             onInput={limitInputLength}
+                            minLength={3}
+                            maxLength={3}
                         />
                     </div>
 
                     <button>Buy</button>
                 </form>
             </div>
-
         </>
     );
 }

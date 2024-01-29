@@ -348,7 +348,7 @@ i[class*='van-type-'] {
 
 .host-nav {
     display: flex;
-    margin-bottom: 30px;
+    margin-bottom: 12px;
 }
 
 .host-nav a {
@@ -654,6 +654,26 @@ i[class*='van-type-'] {
     align-items: center;
     padding-inline: 27px;
 }
+.choose-days-section {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    padding: 20px;
+    height: 100px;
+    background-color: white;
+}
+.choose-days-section p {
+    margin: 0;
+}
+.choose-days-section div {
+    display: flex;
+    align-items: center;
+}
+.choose-days-section select {
+    width: 40px;
+    height: 30px;
+    margin: 0 5px;
+}
 
 .host-form {
     display: flex;
@@ -693,6 +713,34 @@ i[class*='van-type-'] {
     font-family: 'Inter', sans-serif;
     cursor: pointer;
     font-weight: 700;
+}
+.income {
+    padding: 20px;
+}
+
+.income h1 {
+    margin: 0 0 10px 0;
+}
+.history-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 26px;
+}
+.history-section p {
+    color: #aaaaaa;
+}
+
+.transaction {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0px 30px 30px 30px;
+    padding: 10px 20px;
+
+    border-radius: 6px;
+
+    background-color: white;
 }
 
 input[type='number']::-webkit-inner-spin-button,
