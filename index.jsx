@@ -22,7 +22,6 @@ import HostVanInfo from './pages/Host/HostVanInfo';
 import HostVanPhotos from './pages/Host/HostVanPhotos';
 import HostVanPricing from './pages/Host/HostVanPricing';
 import NotFound from './pages/NotFound';
-import './server';
 
 function App() {
     return (

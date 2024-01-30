@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { checkEmail, createUsers } from '../api';
 import { uuidv7 } from 'uuidv7';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 export default function Registration() {
     const [formData, setFormData] = React.useState({
@@ -13,9 +14,15 @@ export default function Registration() {
         transaction: [],
     });
     const [usedMessage, setUsedMessage] = React.useState(false);
+    const [showPassword, setShowPassword] = React.useState(false);
     const location = useLocation();
     const navigate = useNavigate();
     const from = location.state?.from || '/login';
+
+    function handleTogglePassword(e) {
+        e.preventDefault();
+        setShowPassword((prev) => !prev);
+    }
 
     function handleChange(e) {
         const { name, value } = e.target;
@@ -58,19 +65,25 @@ export default function Registration() {
                     id="email"
                     placeholder="Email"
                 />
-                <input
-                    required
-                    name="password"
-                    onChange={handleChange}
-                    type="password"
-                    id="password"
-                    placeholder="Password"
-                    minLength="8"
-                />
+                <div className="password-input-container">
+                    <input
+                        required
+                        name="password"
+                        onChange={handleChange}
+                        type={showPassword ? 'text' : 'password'}
+                        id="password"
+                        placeholder="Password"
+                        minLength="8"
+                    />
+                    <button onClick={handleTogglePassword}>
+                        {showPassword ? <FaEye /> : <FaEyeSlash />}
+                    </button>
+                </div>
+
                 {usedMessage ? (
                     <p className="login-error">This email is already in use</p>
                 ) : null}
-                <button>registration</button>
+                <button>Registration</button>
                 <p>
                     Do you have an account?
                     <Link to="/login" className="link-create-acount">

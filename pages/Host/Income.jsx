@@ -13,23 +13,21 @@ export default function Income() {
         let sum = 0;
         let count = 0;
         try {
-            setTimeout(() => {
-                const transactionElements = user.transaction.map((el) => {
-                    const priceNumber = parseInt(el.cash, 10);
-                    const date = el.days;
-                    sum = sum + priceNumber;
-                    count++;
-                    return (
-                        <div className="transaction" key={priceNumber}>
-                            <h3>${priceNumber}</h3>
-                            <p>{date}</p>
-                        </div>
-                    );
-                });
-                setTotalPrice(sum);
-                setCountTransaction(count);
-                setTransactionElement(transactionElements);
-            }, 200);
+            const transactionElements = user.transaction.map((el) => {
+                const priceNumber = parseInt(el.cash, 10);
+                const date = el.days;
+                sum = sum + priceNumber;
+                count++;
+                return (
+                    <div className="transaction" key={priceNumber}>
+                        <h3>${priceNumber}</h3>
+                        <p>{date}</p>
+                    </div>
+                );
+            });
+            setTotalPrice(sum);
+            setCountTransaction(count);
+            setTransactionElement(transactionElements);
         } catch (error) {
             console.log('Error: ', error);
         } finally {

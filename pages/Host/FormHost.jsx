@@ -35,17 +35,12 @@ export default function FormHost() {
     }
     const handleCardNumberChange = (e) => {
         let input = e.target.value;
-
-        // Удаляем все нецифровые символы
+        // Remove all non-numeric characters
         input = input.replace(/\D/g, '');
-
-        // Добавляем пробелы каждые 4 цифры
+        // Add spaces every 4 digits
         input = input.replace(/(\d{4})/g, '$1 ');
-
-        // Удаляем пробелы в конце строки
+        // Removing spaces at the end of a line
         input = input.trim();
-
-        // Обновляем состояние
         setCardNumber(input);
     };
 
@@ -54,7 +49,7 @@ export default function FormHost() {
 
         const today = new Date();
         const day = String(today.getDate()).padStart(2, '0');
-        const month = String(today.getMonth() + 1).padStart(2, '0'); // Месяцы в JavaScript начинаются с 0
+        const month = String(today.getMonth() + 1).padStart(2, '0');
         const year = today.getFullYear();
         const formattedDate = `${day}/${month}/${year}`;
         const totalPrice = (hostDays * van.price).toString();
