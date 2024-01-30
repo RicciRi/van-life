@@ -67,30 +67,33 @@ export default function VanDetail() {
             {van && (
                 <div className="van-detail">
                     <img src={van.imageUrl} />
-                    <i className={`van-type ${van.type} selected`}>
-                        {van.type}
-                    </i>
-                    <h2>{van.name}</h2>
-                    <p className="van-price">
-                        <span>${van.price}</span>/day
-                    </p>
-                    <p>{van.description}</p>
 
-                    {errorMessage && (
-                        <p className="login-error">You must login first</p>
-                    )}
-                    {alredyRentVan && (
-                        <p className="done-message">
-                            You alredy renting this van!
+                    <div className="van-detail-section">
+                        <i className={`van-type ${van.type} selected`}>
+                            {van.type}
+                        </i>
+                        <h2>{van.name}</h2>
+                        <p className="van-price">
+                            <span>${van.price}</span>/day
                         </p>
-                    )}
-                    <button
-                        disabled={alredyRentVan}
-                        onClick={() => rentVan()}
-                        className="link-button"
-                    >
-                        Rent this van
-                    </button>
+                        <p>{van.description}</p>
+
+                        {errorMessage && (
+                            <p className="login-error">You must login first</p>
+                        )}
+                        {alredyRentVan && (
+                            <p className="done-message">
+                                You alredy renting this van!
+                            </p>
+                        )}
+                        <button
+                            disabled={alredyRentVan}
+                            onClick={() => rentVan()}
+                            className="link-button"
+                        >
+                            Rent this van
+                        </button>
+                    </div>
                 </div>
             )}
         </div>

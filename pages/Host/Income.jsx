@@ -46,19 +46,21 @@ export default function Income() {
     }
     return (
         <div className="income">
-            <h1>Welcome!</h1>
-            <h1>${totalPrice}</h1>
-            <div className="history-section">
-                {countTransaction < 1 ? (
-                    <h2>You don't have transactions.</h2>
-                ) : (
-                    <>
-                        <h4>Your transactions ({countTransaction})</h4>
-                        <p>last 30 days</p>
-                    </>
-                )}
+            <div className="income-container">
+                <h1>Welcome!</h1>
+                <h1>${totalPrice}</h1>
+                <div className="history-section">
+                    {countTransaction < 1 ? (
+                        <h2>You don't have transactions.</h2>
+                    ) : (
+                        <>
+                            <h4>Your transactions ({countTransaction})</h4>
+                            <p>last 30 days</p>
+                        </>
+                    )}
+                </div>
+                {transactionElement}
             </div>
-            {transactionElement}
         </div>
     );
 }
